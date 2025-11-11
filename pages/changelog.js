@@ -23,7 +23,7 @@ export default function Changelog() {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://github.com/danielcranney/profileme-dev/commits/main"
+            href="https://github.com/quoc76241/profileme-dev/commits/main"
             className="btn-md btn-brand ml-auto self-end group gap-x-1.5"
           >
             <GitHubIcon />
@@ -39,7 +39,7 @@ export default function Changelog() {
               <h3>July 14th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -65,7 +65,7 @@ export default function Changelog() {
               <h3>June 28th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default function Changelog() {
                     Waving hand option added to introduction section. Pull
                     request submitted by{" "}
                     <a
-                      href="https://github.com/danielcranney/profileme-dev/commits?author=paytonjewell"
+                      href="https://github.com/quoc76241/profileme-dev/commits?author=paytonjewell"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -100,7 +100,7 @@ export default function Changelog() {
               <h3>June 25th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -114,7 +114,7 @@ export default function Changelog() {
                   <p className="text-sm mb-0">
                     GitHub and Twitter icon links fixed{" "}
                     <a
-                      href="https://github.com/danielcranney/profileme-dev/commits?author=Dharmik48"
+                      href="https://github.com/quoc76241/profileme-dev/commits?author=Dharmik48"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -134,7 +134,7 @@ export default function Changelog() {
               <h3>June 4th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -149,7 +149,7 @@ export default function Changelog() {
                     CodeSandbox link now works correctly. Pull request submitted
                     by{" "}
                     <a
-                      href="https://github.com/danielcranney/profileme-dev/commits?author=bachitterch"
+                      href="https://github.com/quoc76241/profileme-dev/commits?author=bachitterch"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -169,7 +169,7 @@ export default function Changelog() {
               <h3>June 2nd 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -203,7 +203,7 @@ export default function Changelog() {
               <h3>June 1st 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -235,7 +235,7 @@ export default function Changelog() {
               <h3>May 31st 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -250,7 +250,7 @@ export default function Changelog() {
                     State now stored if user refreshes page. Thank you to Adam
                     JA King{" "}
                     <a
-                      href="https://github.com/danielcranney/profileme-dev/commit/3139ab20246105d87453b58334beaaa845c8e833"
+                      href="https://github.com/quoc76241/profileme-dev/commit/3139ab20246105d87453b58334beaaa845c8e833"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -270,7 +270,7 @@ export default function Changelog() {
               <h3>May 14th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -284,7 +284,7 @@ export default function Changelog() {
                   <p className="text-sm mb-0">
                     Kotlin added to skills section. Thank you to Dhina17{" "}
                     <a
-                      href="https://github.com/danielcranney/profileme-dev/commit/c89cd064571ec10f3e2dcf3455f6599c60c4f8f8"
+                      href="https://github.com/quoc76241/profileme-dev/commit/c89cd064571ec10f3e2dcf3455f6599c60c4f8f8"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -303,7 +303,7 @@ export default function Changelog() {
               <h3>May 4th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -353,7 +353,7 @@ export default function Changelog() {
               <h3>April 24th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -387,7 +387,7 @@ export default function Changelog() {
               <h3>April 7th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -411,7 +411,7 @@ export default function Changelog() {
               <h3>March 24th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -459,7 +459,7 @@ export default function Changelog() {
               <h3>March 18th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -483,7 +483,7 @@ export default function Changelog() {
               <h3>March 16th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -509,7 +509,7 @@ export default function Changelog() {
               <h3>March 15th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -536,7 +536,7 @@ export default function Changelog() {
               <h3>March 10th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -571,7 +571,7 @@ export default function Changelog() {
               <h3>March 9th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 
@@ -642,7 +642,7 @@ export default function Changelog() {
               <h3>March 8th 2022</h3>
               <p className="text-sm mb-0">
                 Posted by{" "}
-                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+                <a href="mailto:quoc76241@gmail.com">Dan Cranney</a>
               </p>
             </div>
 

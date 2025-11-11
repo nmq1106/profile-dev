@@ -1,0 +1,89 @@
+#!/bin/bash
+# ===========================
+# NEXT.JS AUTO DEPLOY SCRIPT
+# AlmaLinux 8
+# ===========================
+
+# --- Cấu hình ---
+GITHUB_REPO="https://github.com/danielcranney/profileme-dev.git"   # Thay bằng repo của bạn
+BRANCH="main"                                       # Nhánh muốn deploy
+APP_NAME="profileme-dev"
+APP_DIR="/opt/$APP_NAME"
+APP_PORT=3000
+DOMAIN="mombee.store"
+EMAIL="quoc76241@example.com"
+
+# --- Cập nhật hệ thống ---
+sudo dnf update -y
+sudo dnf install -y git gcc-c++ make epel-release
+
+# --- Cài Node.js 18.x ---
+curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+sudo dnf install -y nodejs
+node -v
+npm -v
+
+# --- Cài PM2 ---
+sudo npm install -g pm2
+
+# --- Cài Nginx và Certbot ---
+sudo dnf install -y nginx
+sudo systemctl enable --now nginx
+sudo dnf install -y certbot python3-certbot-nginx
+
+# --- Firewall mở port ---
+sudo firewall-cmd --zone=public --permanent --add-service=http
+sudo firewall-cmd --zone=public --permanent --add-service=https
+sudo firewall-cmd --zone=public --permanent --add-service=ssh
+sudo firewall-cmd --zone=public --permanent --add-port=$APP_PORT/tcp
+sudo firewall-cmd --reload
+
+# --- Clone hoặc cập nhật project ---
+if [ -d "$APP_DIR" ]; then
+  cd $APP_DIR
+  git reset --hard
+  git checkout $BRANCH
+  git pull origin $BRANCH
+else
+  git clone -b $BRANCH $GITHUB_REPO $APP_DIR
+  cd $APP_DIR
+fi
+
+# --- Xóa cache và cài lại dependencies ---
+rm -rf node_modules package-lock.json yarn.lock .next
+npm install
+
+# --- Build production ---
+npm run build
+
+# --- Chạy bằng PM2 ---
+pm2 delete $APP_NAME 2>/dev/null
+pm2 start npm --name "$APP_NAME" -- start
+pm2 save
+pm2 startup systemd -u $USER --hp /home/$USER
+
+# --- Cấu hình Nginx ---
+sudo tee /etc/nginx/conf.d/$DOMAIN.conf > /dev/null <<EOF
+server {
+    listen 80;
+    server_name $DOMAIN www.$DOMAIN;
+
+    location / {
+        proxy_pass http://127.0.0.1:$APP_PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
+    }
+}
+EOF
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+# --- Cài HTTPS Let’s Encrypt ---
+sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email $EMAIL -d $DOMAIN -d www.$DOMAIN
+
+echo "✅ Deployment hoàn tất!"
+echo "App Next.js chạy trên: https://$DOMAIN/"

@@ -23,6 +23,29 @@ const Badges = React.forwardRef((props, ref) => {
   } = props;
   const { state, dispatch } = useContext(StateContext);
 
+  // Helper function to get badge by ID
+  const getBadge = (badgeId) => {
+    return Array.isArray(state.badges) 
+      ? state.badges.find(badge => badge.id === badgeId)
+      : null;
+  };
+
+  // Helper function to check if badge is selected
+  const isBadgeSelected = (badgeId) => {
+    const badge = getBadge(badgeId);
+    return badge ? badge.show : false;
+  };
+
+  // Helper function to get badge property
+  const getBadgeProperty = (badgeId, property) => {
+    const badge = getBadge(badgeId);
+    return badge ? badge[property] : null;
+  };
+
+  // Get specific badges
+  const githubStatsCardBadge = getBadge('githubStatsCard');
+  const reposCardBadge = getBadge('reposCard');
+
   // Repo Card Refs
   const repoOneRef = useRef();
   const repoTwoRef = useRef();
@@ -45,16 +68,16 @@ const Badges = React.forwardRef((props, ref) => {
         <div ref={ref}></div>
         <section className="flex flex-col p-6">
           {/* Customise */}
-          <article className="mb-0">
-            <p
-              className={`mb-2 text-xs font-semibold uppercase dark:text-white`}
-            >
+          <article className="mb-6">
+            <p className="mb-3 text-sm font-semibold uppercase text-dark-700 dark:text-white">
               Style badges:
             </p>
             {!badgesShowing ? (
-              <p className="text-xs">Select a badge below to customise.</p>
+              <p className="text-sm text-dark-500 dark:text-light-400">
+                Select a badge below to customise its appearance.
+              </p>
             ) : null}
-            <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
+            <article className="grid grid-cols-1 gap-3 mb-4 xl:grid-cols-2">
               <StyleBadgeButton
                 colorList={colorStore.lightColors}
                 badgeKeyToStyle={"titleColor"}
@@ -96,155 +119,161 @@ const Badges = React.forwardRef((props, ref) => {
               />
             </article>
           </article>
-          <article className="flex flex-col mb-4 gap-y-4">
-            <h3 className="mb-0">GitHub</h3>
-            {!state.socials.github.linkSuffix ? (
-              <p className="mb-2 text-xs">
+
+          {/* GitHub Badges Section */}
+          <article className="flex flex-col mb-6 gap-y-4">
+            <h3 className="text-lg font-semibold text-dark-800 dark:text-white mb-2">
+              GitHub
+            </h3>
+            {!state.socials?.github?.linkSuffix ? (
+              <p className="mb-3 text-sm text-dark-500 dark:text-light-400 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
                 Please{" "}
-                <a
+                <button
                   onClick={() => {
                     dispatch({
                       type: ACTIONS.SHOW_SECTION,
                       payload: "socials",
                     });
                   }}
+                  className="text-brand hover:text-brand-light dark:text-brand-light dark:hover:text-brand font-medium underline transition-colors"
                 >
                   add your GitHub profile
-                </a>{" "}
-                in the socials section.
+                </button>{" "}
+                in the socials section to enable GitHub badges.
               </p>
             ) : null}
+
             {/* GitHub Stats Card */}
-            <article>
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
               <ToggleBadgeButton
                 badgeType={"githubStatsCard"}
                 profileLink={"github"}
-                badgeText={"Stats Card"}
+                badgeText={"GitHub Stats Card"}
                 handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('githubStatsCard')}
               />
 
               <article
-                className={`flex flex-col p-4 border-b border-l border-r dark:border-dark-700 border-light-200 overflow-hidden transform transition-all duration-150 ease-in-out rounded-bl-md rounded-br-md ${
-                  state.badges.githubStatsCard.selected
-                    ? "block"
-                    : "hidden -translate-y-3"
+                className={`flex flex-col p-4 border-t border-light-200 dark:border-dark-600 overflow-hidden transform transition-all duration-300 ease-in-out ${
+                  isBadgeSelected('githubStatsCard')
+                    ? "max-h-96 opacity-100 translate-y-0"
+                    : "max-h-0 opacity-0 -translate-y-4"
                 }`}
               >
-                <p
-                  className={`mb-2 text-xs font-semibold uppercase transition-all duration-150 ease-in-out ${
-                    state.badges.githubStatsCard.selected
-                      ? "opacity-100"
-                      : "opacity-0 -translate-y-3"
-                  }`}
-                >
-                  Show:
+                <p className="mb-3 text-sm font-semibold uppercase text-dark-600 dark:text-light-400">
+                  Show Stats:
                 </p>
-                <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                <article className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"stars"}
                     badgeText={"Stars"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.stars !== false}
                   />
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"commits"}
                     badgeText={"Commits"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.commits !== false}
                   />
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"prs"}
-                    badgeText={"PRs"}
+                    badgeText={"Pull Requests"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.prs !== false}
                   />
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"issues"}
                     badgeText={"Issues"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.issues !== false}
                   />
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"contribs"}
                     badgeText={"Contributions"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.contribs !== false}
                   />
                   <ToggleBadgeElementCheckbox
                     badgeType={"githubStatsCard"}
                     badgeKeyToHide={"privateCommits"}
                     badgeText={"Private Commits"}
                     handleBadgeElementToggle={handleBadgeElementToggle}
+                    isChecked={githubStatsCardBadge?.privateCommits !== false}
                   />
                 </article>
               </article>
             </article>
 
-            <ToggleBadgeButton
-              badgeType={"githubStreak"}
-              profileLink={"github"}
-              badgeText={"Commit Streak"}
-              handleBadgeToggle={handleBadgeToggle}
-            />
-
-            {/* GitHub Commits Graph Badge */}
-            {/* <ToggleBadgeButton
-              badgeType={"githubCommitsGraph"}
-              profileLink={"github"}
-              badgeText={"Commits Graph"}
-              handleBadgeToggle={handleBadgeToggle}
-            /> */}
+            {/* GitHub Streak */}
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
+              <ToggleBadgeButton
+                badgeType={"githubStreak"}
+                profileLink={"github"}
+                badgeText={"GitHub Commit Streak"}
+                handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('githubStreak')}
+              />
+            </article>
 
             {/* Top Languages Card */}
-            <ToggleBadgeButton
-              badgeType={"topLangsCard"}
-              profileLink={"github"}
-              badgeText={"Top Languages"}
-              handleBadgeToggle={handleBadgeToggle}
-            />
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
+              <ToggleBadgeButton
+                badgeType={"topLangsCard"}
+                profileLink={"github"}
+                badgeText={"Top Languages"}
+                handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('topLangsCard')}
+              />
+            </article>
 
             {/* Repository Card */}
-            <article>
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
               <ToggleBadgeButton
                 badgeType={"reposCard"}
                 profileLink={"github"}
-                badgeText={"Top Repositories"}
+                badgeText={"Featured Repositories"}
                 handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('reposCard')}
               />
 
               <article
-                className={`flex flex-col p-4 border-b border-l border-r dark:border-dark-700 border-light-200 overflow-hidden transform transition-all duration-150 ease-in-out rounded-bl-md rounded-br-md ${
-                  state.badges.reposCard.selected
-                    ? "block"
-                    : "hidden -translate-y-3"
+                className={`flex flex-col p-4 border-t border-light-200 dark:border-dark-600 overflow-hidden transform transition-all duration-300 ease-in-out ${
+                  isBadgeSelected('reposCard')
+                    ? "max-h-96 opacity-100 translate-y-0"
+                    : "max-h-0 opacity-0 -translate-y-4"
                 }`}
               >
-                <p
-                  className={`mb-2 text-xs font-semibold uppercase dark:text-white`}
-                >
-                  Find Repositories
+                <p className="mb-2 text-sm font-semibold uppercase text-dark-600 dark:text-light-400">
+                  Repository Names
                 </p>
-                <p className="text-xs">
-                  The repository must be the same as it is on your GitHub
-                  (including hyphens, NOT case-sensitive).
+                <p className="text-sm text-dark-500 dark:text-light-400 mb-4">
+                  Enter repository names exactly as they appear on GitHub (case-sensitive).
                 </p>
-                <article className="grid grid-cols-1 gap-2 mb-2">
+                <article className="grid grid-cols-1 gap-3 mb-4">
                   <AddRepoInput
                     ref={repoOneRef}
                     section={"reposCard"}
                     type={"repoOne"}
-                    placeholder={"repo-name"}
+                    placeholder={"my-awesome-repo"}
                     action={ACTIONS.ADD_REPO}
+                    currentValue={reposCardBadge?.repoOne || ""}
                   />
 
-                  {state.badges.reposCard.repoTwo != null ? (
-                    <article className="flex gap-x-2 h-9.5">
+                  {reposCardBadge?.repoTwo != null ? (
+                    <article className="flex gap-x-3">
                       <AddRepoInput
                         ref={repoTwoRef}
                         section={"reposCard"}
                         type={"repoTwo"}
-                        placeholder={"repo-name"}
+                        placeholder={"another-repo"}
                         action={ACTIONS.ADD_REPO}
+                        currentValue={reposCardBadge?.repoTwo || ""}
                       />
                       <DeleteRepo
                         action={ACTIONS.DELETE_REPO}
@@ -253,14 +282,15 @@ const Badges = React.forwardRef((props, ref) => {
                     </article>
                   ) : null}
 
-                  {state.badges.reposCard.repoThree != null ? (
-                    <article className="flex gap-x-2 h-9.5">
+                  {reposCardBadge?.repoThree != null ? (
+                    <article className="flex gap-x-3">
                       <AddRepoInput
                         ref={repoThreeRef}
                         section={"reposCard"}
                         type={"repoThree"}
-                        placeholder={"repo-name"}
+                        placeholder={"third-repo"}
                         action={ACTIONS.ADD_REPO}
+                        currentValue={reposCardBadge?.repoThree || ""}
                       />
                       <DeleteRepo
                         action={ACTIONS.DELETE_REPO}
@@ -269,14 +299,15 @@ const Badges = React.forwardRef((props, ref) => {
                     </article>
                   ) : null}
 
-                  {state.badges.reposCard.repoFour != null ? (
-                    <article className="flex gap-x-2 h-9.5">
+                  {reposCardBadge?.repoFour != null ? (
+                    <article className="flex gap-x-3">
                       <AddRepoInput
                         ref={repoFourRef}
                         section={"reposCard"}
                         type={"repoFour"}
-                        placeholder={"repo-name"}
+                        placeholder={"fourth-repo"}
                         action={ACTIONS.ADD_REPO}
+                        currentValue={reposCardBadge?.repoFour || ""}
                       />
                       <DeleteRepo
                         action={ACTIONS.DELETE_REPO}
@@ -285,99 +316,120 @@ const Badges = React.forwardRef((props, ref) => {
                     </article>
                   ) : null}
                 </article>
-                {state.badges.reposCard.repoTwo != null ? null : (
-                  <>
+
+                {/* Add Repository Buttons */}
+                <div className="flex flex-wrap gap-2">
+                  {reposCardBadge?.repoTwo == null && (
                     <AddRepo
                       action={ACTIONS.ADD_REPO}
                       repoNumberToAdd={"repoTwo"}
+                      label="Add Second Repo"
                     />
-                  </>
-                )}
+                  )}
 
-                {state.badges.reposCard.repoThree != null ||
-                state.badges.reposCard.repoTwo == null ? null : (
-                  <>
+                  {reposCardBadge?.repoThree == null && reposCardBadge?.repoTwo != null && (
                     <AddRepo
                       action={ACTIONS.ADD_REPO}
                       repoNumberToAdd={"repoThree"}
+                      label="Add Third Repo"
                     />
-                  </>
-                )}
+                  )}
 
-                {state.badges.reposCard.repoFour != null ||
-                state.badges.reposCard.repoTwo == null ||
-                state.badges.reposCard.repoThree == null ? null : (
-                  <>
+                  {reposCardBadge?.repoFour == null && reposCardBadge?.repoThree != null && (
                     <AddRepo
                       action={ACTIONS.ADD_REPO}
                       repoNumberToAdd={"repoFour"}
+                      label="Add Fourth Repo"
                     />
-                  </>
-                )}
+                  )}
+                </div>
               </article>
             </article>
 
             {/* GitHub Followers Badge */}
-            <ToggleBadgeButton
-              badgeType={"githubFollowers"}
-              profileLink={"github"}
-              badgeText={"Follower Count"}
-              handleBadgeToggle={handleBadgeToggle}
-            />
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
+              <ToggleBadgeButton
+                badgeType={"githubFollowers"}
+                profileLink={"github"}
+                badgeText={"GitHub Followers Count"}
+                handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('githubFollowers')}
+              />
+            </article>
           </article>
-          <article className="flex flex-col mb-4 gap-y-4">
-            <h3 className="mb-0">X (Twitter)</h3>
-            {!state.socials.twitter.linkSuffix ? (
-              <p className="mb-2 text-xs">
+
+          {/* Twitter Badges Section */}
+          <article className="flex flex-col mb-6 gap-y-4">
+            <h3 className="text-lg font-semibold text-dark-800 dark:text-white mb-2">
+              X (Twitter)
+            </h3>
+            {!state.socials?.twitter?.linkSuffix ? (
+              <p className="mb-3 text-sm text-dark-500 dark:text-light-400 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
                 Please{" "}
-                <a
+                <button
                   onClick={() => {
                     dispatch({
                       type: ACTIONS.SHOW_SECTION,
                       payload: "socials",
                     });
                   }}
+                  className="text-brand hover:text-brand-light dark:text-brand-light dark:hover:text-brand font-medium underline transition-colors"
                 >
                   add your X profile
-                </a>{" "}
-                in the socials section.
+                </button>{" "}
+                in the socials section to enable Twitter badges.
               </p>
             ) : null}
-            {/* X Followers Badge */}
-            <ToggleBadgeButton
-              badgeType={"twitterFollowers"}
-              profileLink={"twitter"}
-              badgeText={"Follower Count"}
-              handleBadgeToggle={handleBadgeToggle}
-            />
+
+            {/* Twitter Followers Badge */}
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
+              <ToggleBadgeButton
+                badgeType={"twitterFollowers"}
+                profileLink={"twitter"}
+                badgeText={"Twitter Followers Count"}
+                handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('twitterFollowers')}
+              />
+            </article>
           </article>
-          <article className="flex flex-col mb-4 gap-y-4">
-            <h3 className="mb-0">Twitch</h3>
-            {!state.socials.twitch.linkSuffix ? (
-              <p className="mb-2 text-xs">
+
+          {/* Twitch Badges Section */}
+          <article className="flex flex-col mb-6 gap-y-4">
+            <h3 className="text-lg font-semibold text-dark-800 dark:text-white mb-2">
+              Twitch
+            </h3>
+            {!state.socials?.twitch?.linkSuffix ? (
+              <p className="mb-3 text-sm text-dark-500 dark:text-light-400 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
                 Please{" "}
-                <a
+                <button
                   onClick={() => {
                     dispatch({
                       type: ACTIONS.SHOW_SECTION,
                       payload: "socials",
                     });
                   }}
+                  className="text-brand hover:text-brand-light dark:text-brand-light dark:hover:text-brand font-medium underline transition-colors"
                 >
                   add your Twitch profile
-                </a>{" "}
-                in the socials section.
+                </button>{" "}
+                in the socials section to enable Twitch badges.
               </p>
             ) : null}
-            {/* Twitch Channel Badge */}
-            <ToggleBadgeButton
-              badgeType={"twitchStatus"}
-              profileLink={"twitch"}
-              badgeText={"Streaming Status"}
-              handleBadgeToggle={handleBadgeToggle}
-            />
+
+            {/* Twitch Status Badge */}
+            <article className="border border-light-200 dark:border-dark-600 rounded-lg overflow-hidden">
+              <ToggleBadgeButton
+                badgeType={"twitchStatus"}
+                profileLink={"twitch"}
+                badgeText={"Twitch Streaming Status"}
+                handleBadgeToggle={handleBadgeToggle}
+                isSelected={isBadgeSelected('twitchStatus')}
+              />
+            </article>
           </article>
-          <section className="flex mt-4">
+
+          {/* Navigation */}
+          <section className="flex mt-6 gap-3">
             <PreviousSection sectionToGoTo={"socials"} />
             <NextSection sectionToGoTo={"support"} />
           </section>

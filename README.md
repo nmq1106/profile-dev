@@ -45,7 +45,7 @@ Contributions are always welcome! Here's a few tips on how to get started.
 
 - ### Issues
 
-  To get started, please take a look at the ['Issues'](https://github.com/danielcranney/profileme-dev/issues) tab, where you will find open issues that exist within the project. If you see one that interests you, create a branch and submit a PR for review and approval.
+  To get started, please take a look at the ['Issues'](https://www.facebook.com/queen2kxx) tab, where you will find open issues that exist within the project. If you see one that interests you, create a branch and submit a PR for review and approval.
 
 - ### How to add an icon
 

@@ -2,19 +2,23 @@ import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 
 const AddRepo = ({ action, repoNumberToAdd }) => {
-  const { state, dispatch } = useContext(StateContext);
+  const { dispatch } = useContext(StateContext);
+
+  const handleAddRepo = () => {
+    dispatch({
+      type: action,
+      payload: {
+        title: repoNumberToAdd,
+        value: "",
+      },
+    });
+  };
+
   return (
     <button
-      className="btn-xs btn-gray justify-center"
-      onClick={() => {
-        dispatch({
-          type: action,
-          payload: {
-            title: repoNumberToAdd,
-            value: "",
-          },
-        });
-      }}
+      className="btn-xs btn-gray flex items-center justify-center p-1 rounded hover:bg-gray-300 transition"
+      onClick={handleAddRepo}
+      aria-label={`Add repository ${repoNumberToAdd}`}
     >
       <svg
         className="w-4 h-4"
@@ -26,9 +30,9 @@ const AddRepo = ({ action, repoNumberToAdd }) => {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        ></path>
+          strokeWidth={2}
+          d="M12 6v12m6-6H6"
+        />
       </svg>
     </button>
   );

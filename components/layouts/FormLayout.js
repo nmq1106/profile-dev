@@ -124,7 +124,7 @@ export default function FormLayout({ children }) {
               <ul className="flex flex-col">
                 <li className="border-b h-10 px-3 border-light-100 dark:border-dark-600 flex items-center group">
                   <a
-                    href="mailto:danielcranney@gmail.com"
+                    href="mailto:quoc76241@gmail.com"
                     className="flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2"
                   >
                     <svg
@@ -173,7 +173,7 @@ export default function FormLayout({ children }) {
                 <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
                   <Link
                     className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 hover:text-dark-700 dark:hover:text-white transition-all duration-150 ease-in-out gap-x-2 group"
-                    href="https://github.com/danielcranney/profileme-dev/"
+                    href="https://www.facebook.com/queen2kxx"
                     target="_blank"
                     rel="noreferrer"
                   >
